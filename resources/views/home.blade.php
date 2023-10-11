@@ -14,6 +14,49 @@
         @csrf
         <button>Log Out</button>
     </form>
+    <div>
+        <h1>Products</h1>
+        <div>
+            @if (session()->has('success'))
+                {{ session('success') }}
+            @endif
+        </div>
+        <div>
+            <a href="{{ route('products.create') }}">Create Product</a>
+        </div>
+        <div>
+            <table>
+                <tr>
+                    <th>id</th>
+                    <th>name</th>
+                    <th>quantity</th>
+                    <th>price</th>
+                    <th>description</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+                @foreach ($products as $product)
+                    <tr>
+                        <td>{{ $product->id }}</td>
+                        <td>{{ $product->name }}</td>
+                        <td>{{ $product->quantity }}</td>
+                        <td>{{ $product->price }}</td>
+                        <td>{{ $product->description }}</td>
+                        <td>
+                            <a href="{{ route('products.edit', ['product' => $product]) }}">Edit</a>
+                        </td>
+                        <td>
+                            <form method="POST" action="{{ route('products.destroy', ['product' => $product]) }}">
+                                @csrf
+                                @method('delete')
+                                <input type="submit" value="Delete" />
+                            </form>
+                        </td>
+                    </tr>
+                @endforeach
+            </table>
+        </div>
+    </div>
 </body>
 
 </html>

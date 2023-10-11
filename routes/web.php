@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,6 +19,8 @@ Route::get('/', function () {
     return view('index');
 });
 
-Route::get('/home', [HomeController::class, 'create'])->middleware('auth')->name('home');
+Route::get('/home', [ProductController::class, 'index'])->middleware('auth')->name('home');
 
 require __DIR__.'/auth.php';
+
+require __DIR__.'/products.php';
